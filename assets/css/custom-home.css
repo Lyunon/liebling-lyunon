@@ -1,6 +1,6 @@
 .ly-hero {
   position: relative;
-  padding: 72px 0 24px;
+  padding: 56px 0 28px;
   overflow: hidden;
 }
 
@@ -17,8 +17,8 @@
 .ly-hero__grid {
   position: relative;
   display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
-  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
   align-items: center;
 }
 
@@ -54,9 +54,9 @@
 .ly-hero__visual {
   position: relative;
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  min-height: 520px;
+  justify-content: center;
+  align-items: center;
+  min-height: 420px;
   overflow:hidden;
 }
 
@@ -71,11 +71,12 @@
 }
 
 .ly-hero__visual img {
-  width: 100%;
-  max-width: 780px;
+  display: block;
+  width: auto;
+  max-width: 520px;
   height: auto;
-  transform: translateX(70px, -45px) scale(1.12);
-  transform-origin: center bottom;
+  transform: translateY(-10px);
+  transform-origin: center center;
   object-fit: contain;
 }
 
