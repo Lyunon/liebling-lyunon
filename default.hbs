@@ -172,8 +172,23 @@
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
 
-          card.style.setProperty('--x', x + 'px');
-          card.style.setProperty('--y', y + 'px');
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+
+          const rotateY = ((x - centerX) / centerX) * 5;
+          const rotateX = ((centerY - y) / centerY) * 5;
+
+          card.style.setProperty('--x', `${x}px`);
+          card.style.setProperty('--y', `${y}px`);
+          card.style.setProperty('--rotateX', `${rotateX}deg`);
+          card.style.setProperty('--rotateY', `${rotateY}deg`);
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.removeProperty('--x');
+          card.style.removeProperty('--y');
+          card.style.setProperty('--rotateX', '0deg');
+          card.style.setProperty('--rotateY', '0deg');
         });
       });
     </script>
