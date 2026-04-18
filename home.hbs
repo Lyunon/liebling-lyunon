@@ -34,6 +34,33 @@
     </div>
   </section>
 
+  <section class="ly-section ly-section--notice-banner">
+    <div class="l-wrapper">
+      {{#get "posts" filter="tag:notice" limit="1" order="published_at desc" include="tags,authors"}}
+        {{#if posts}}
+          {{#foreach posts}}
+            <a class="ly-notice-banner" href="{{url}}">
+              <div class="ly-notice-banner__label">NOTICE</div>
+              <div class="ly-notice-banner__body">
+                <h2 class="ly-notice-banner__title">{{title}}</h2>
+                {{#if custom_excerpt}}
+                  <p class="ly-notice-banner__desc">{{custom_excerpt}}</p>
+                {{else}}
+                  <p class="ly-notice-banner__desc">{{excerpt words="18"}}</p>
+                {{/if}}
+              </div>
+              <div class="ly-notice-banner__meta">
+                <span>{{date published_at format="YYYY.MM.DD"}}</span>
+                <span>·</span>
+                <span>{{reading_time}}</span>
+              </div>
+            </a>
+          {{/foreach}}
+        {{/if}}
+      {{/get}}
+    </div>
+  </section>
+
   <!-- FEATURED (여기 수정됨) -->
   <section class="ly-section ly-section--featured">
     <div class="l-wrapper">
