@@ -70,17 +70,11 @@
 }
 
 .ly-hero__visual img {
-  position: relative;
-  z-index: 1;
   width: auto;
-  max-width: 600px;
+  max-width: 620px;
   height: auto;
-  transform: none;
-  transform-origin: center botton;
-  object-fit: contain;
-  margin-right: -30px;
-  margin-bottom: -10px;
-  filter: drop-shadow(0 20px 40px rgba(122, 162, 255, 0.28));
+  transform: scale(1.05);
+  transform-origin: center bottom;
 }
 
 .ly-section {
