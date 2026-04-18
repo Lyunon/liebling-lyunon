@@ -129,6 +129,19 @@
         }
       }
     </script>
+
+    <script>
+    document.querySelectorAll('.ly-post-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.setProperty('--x', x + 'px');
+        card.style.setProperty('--y', y + 'px');
+      });
+    });
+    </script>
   </head>
   <body class="{{body_class}}">
     {{!-- All the main content gets inserted here, index.hbs, post.hbs, etc --}}
