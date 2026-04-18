@@ -240,6 +240,9 @@
   margin-bottom: 10px;
   font-size: 12px;
   font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(122, 162, 255, 0.12);
   color: #7aa2ff;
 }
 
