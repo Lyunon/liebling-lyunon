@@ -39,11 +39,11 @@
         <p>최신 글을 한눈에 확인해 보세요.</p>
       </div>
 
-    {{#get "posts" limit="6" as |latest|}}
+    {{#get "posts" include="tags,authors" limit="6" as |latest|}}
       {{#if latest}}
         <div class="l-post-grid">
           {{#foreach latest}}
-            <p>{{title}}</p>
+            {{> "article-card"}}
           {{/foreach}}
         </div>
       {{else}}
