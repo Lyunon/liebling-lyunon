@@ -32,6 +32,52 @@
     </div>
   </section>
 
+  <section class="ly-section ly-section--featured">
+    <div class="l-wrapper">
+      {{#get "posts" filter="tag:featured-home" limit="1" include="tags,authors"}}
+        {{#if posts}}
+          {{#foreach posts}}
+            <article class="ly-featured-card {{#if primary_tag}}ly-featured-card--{{primary_tag.slug}}{{/if}}">
+              <a class="ly-featured-card__media" href="{{url}}">
+                {{#if feature_image}}
+                  <img src="{{img_url feature_image size="xl"}}" alt="{{title}}">
+                {{else}}
+                  <img src="{{asset "images/default-thumb.png"}}" alt="기본 썸네일">
+                {{/if}}
+              </a>
+
+              <div class="ly-featured-card__content">
+                {{#if primary_tag}}
+                  <span class="ly-featured-card__tag">{{primary_tag.name}}</span>
+                {{/if}}
+
+                <h2 class="ly-featured-card__title">
+                  <a href="{{url}}">{{title}}</a>
+                </h2>
+
+                {{#if custom_excerpt}}
+                  <p class="ly-featured-card__desc">{{custom_excerpt}}</p>
+                {{else}}
+                  <p class="ly-featured-card__desc">{{excerpt words="24"}}</p>
+                {{/if}}
+
+                <div class="ly-featured-card__meta">
+                  <span>{{date published_at format="YYYY.MM.DD"}}</span>
+                  <span>·</span>
+                  <span>{{reading_time}}</span>
+                </div>
+
+                <div class="ly-featured-card__actions">
+                  <a href="{{url}}" class="m-button filled">대표 글 보기</a>
+                </div>
+              </div>
+            </article>
+          {{/foreach}}
+        {{/if}}
+      {{/get}}
+    </div>
+  </section>
+
   <section class="ly-section">
     <div class="l-wrapper">
       <div class="ly-section__head">
