@@ -36,7 +36,7 @@
 
   <section class="ly-section ly-section--notice-banner">
     <div class="l-wrapper">
-      {{#get "posts" filter="tag:notice" limit="1" order="published_at desc" include="tags,authors"}}
+      {{#get "posts" filter="tag:home-notice" limit="1" order="published_at desc" include="tags,authors"}}
         {{#if posts}}
           {{#foreach posts}}
             <a class="ly-notice-banner" href="{{url}}">
