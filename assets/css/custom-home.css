@@ -72,11 +72,14 @@
 .ly-hero__visual img {
   position: relative;
   z-index: 1;
-  width: 100%;
-  max-width: 720px;
-  transform: scale(1.05);
-  height: auto;
+  width: auto;
+  max-width: none;
+  height: 560;
+  transform: scale(1.22);
+  transform-origin: center botton;
   object-fit: contain;
+  margin-right: -30px;
+  margin-bottom: -10px;
   filter: drop-shadow(0 20px 40px rgba(122, 162, 255, 0.28));
 }
 
