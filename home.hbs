@@ -39,11 +39,42 @@
         <p>최신 글을 한눈에 확인해 보세요.</p>
       </div>
 
-    {{#get "posts" include="tags,authors" limit="6"}}
-      <div class="l-post-grid">
-        {{> "loop" posts=posts}}
-      </div>
-    {{/get}}
+      {{#get "posts" include="tags,authors" limit="6"}}
+        {{#if posts}}
+          <div class="ly-post-grid">
+            {{#foreach posts}}
+              <article class="ly-post-card">
+                <a class="ly-post-card__media" href="{{url}}">
+                  {{#if feature_image}}
+                    <img src="{{img_url feature_image size="m"}}" alt="{{title}}">
+                  {{else}}
+                    <div class="ly-post-card__placeholder"></div>
+                  {{/if}}
+                </a>
+
+                <div class="ly-post-card__content">
+                  {{#if primary_tag}}
+                    <span class="ly-post-card__tag">{{primary_tag.name}}</span>
+                  {{/if}}
+
+                  <h3 class="ly-post-card__title">
+                    <a href="{{url}}">{{title}}</a>
+                  </h3>
+
+                  <div class="ly-post-card__meta">
+                    <span>{{date published_at format="YYYY.MM.DD"}}</span>
+                    <span>·</span>
+                    <span>{{reading_time}}</span>
+                  </div>
+                </div>
+              </article>
+            {{/foreach}}
+          </div>
+        {{else}}
+          <p>아직 게시물이 없습니다.</p>
+        {{/if}}
+      {{/get}}
+    </div>
   </section>
 
   <section class="ly-section ly-section--tags">
