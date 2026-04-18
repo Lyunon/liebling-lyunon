@@ -1,0 +1,82 @@
+{{!< default}}
+
+{{#contentFor "styles"}}
+  <link rel="stylesheet" type="text/css" href="{{asset "css/custom-home.css"}}" media="screen" />
+{{/contentFor}}
+
+{{> header}}
+
+<main class="main-wrap">
+  <section class="ly-hero">
+    <div class="l-wrapper">
+      <div class="ly-hero__grid">
+        <div class="ly-hero__text" data-animate="fade-down">
+          <p class="ly-hero__kicker">Virtual Streamer</p>
+          <h1 class="ly-hero__title">륜온</h1>
+          <p class="ly-hero__desc">
+            버츄얼 스트리머 륜온의 블로그입니다.
+            방송 후기나 아카이빙, 커미션 공지 등의 목적으로 사용하는 공간입니다.
+          </p>
+
+          <div class="ly-hero__actions">
+            <a href="/tag/tarot/" class="m-button filled">타로 신청</a>
+            <a href="/tag/broadcast/" class="m-button outlined">방송 후기</a>
+            <a href="/about/" class="m-button text">소개 보기</a>
+          </div>
+        </div>
+
+        <div class="ly-hero__visual" data-animate="fade-up">
+          <img src="{{asset "images/lyunon.png"}}" alt="륜온 캐릭터 반신 이미지">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ly-section">
+    <div class="l-wrapper">
+      <div class="ly-section__head">
+        <h2>Latest Arcana</h2>
+        <p>최신 글을 한눈에 확인해 보세요.</p>
+      </div>
+
+      <div class="l-post-grid">
+        {{#get "posts" include="tags,authors" limit="6"}}
+          {{#foreach posts}}
+            {{> "loop"}}
+          {{/foreach}}
+        {{/get}}
+      </div>
+    </div>
+  </section>
+
+  <section class="ly-section ly-section--tags">
+    <div class="l-wrapper">
+      <div class="ly-section__head">
+        <h2>Explore</h2>
+        <p>원하는 주제로 바로 이동할 수 있어요.</p>
+      </div>
+
+      <div class="ly-tag-grid">
+        <a class="ly-tag-card" href="/tag/tarot/">
+          <strong>🔮 Tarot</strong>
+          <span>타로 관련</span>
+        </a>
+
+        <a class="ly-tag-card" href="/tag/broadcast/">
+          <strong>🎥 Broadcast</strong>
+          <span>방송 관련</span>
+        </a>
+
+        <a class="ly-tag-card" href="/tag/notice/">
+          <strong>📜 Notice</strong>
+          <span>공지</span>
+        </a>
+
+        <a class="ly-tag-card" href="/tag/free/">
+          <strong>☁️ Free Talk</strong>
+          <span>일상 및 잡담</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
