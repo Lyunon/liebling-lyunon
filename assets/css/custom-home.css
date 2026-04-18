@@ -275,6 +275,19 @@
   opacity: 0.72;
 }
 
+.ly-post-card:hover {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow: 0 20px 40px rgba(120, 140, 255, 0.22);
+}
+
+.ly-post-card__tag {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6b9cff;
+}
+
 @media (prefers-color-scheme: dark) {
   .ly-post-card {
     background: rgba(23, 28, 56, 0.72);
