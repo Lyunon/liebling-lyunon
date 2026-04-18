@@ -156,6 +156,12 @@
 }
 
 .ly-post-card {
+  --card-glow-1: rgba(168, 216, 255, 0.12);
+  --card-glow-2: rgba(179, 136, 255, 0.06);
+  --card-border: rgba(179, 136, 255, 0.18);
+  --card-gold-1: rgba(255, 215, 140, 0.16);
+  --card-gold-2: rgba(255, 215, 140, 0.06);
+
   position: relative;
   display: flex;
   flex-direction: column;
@@ -164,10 +170,40 @@
   background: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(140, 170, 255, 0.16);
   box-shadow: 0 10px 24px rgba(120, 140, 255, 0.08);
+  transform-style: preserve-3d;
+  perspective: 1000px;
   transition:
     transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ly-post-card--tarot {
+  --card-glow-1: rgba(179, 136, 255, 0.18);
+  --card-glow-2: rgba(122, 162, 255, 0.08);
+  --card-border: rgba(179, 136, 255, 0.24);
+  --card-gold-1: rgba(255, 220, 160, 0.22);
+  --card-gold-2: rgba(255, 215, 140, 0.08);
+}
+
+.ly-post-card--notice {
+  --card-glow-1: rgba(143, 194, 255, 0.16);
+  --card-glow-2: rgba(168, 216, 255, 0.08);
+  --card-border: rgba(143, 194, 255, 0.22);
+}
+
+.ly-post-card--broadcast {
+  --card-glow-1: rgba(122, 162, 255, 0.16);
+  --card-glow-2: rgba(168, 216, 255, 0.06);
+  --card-border: rgba(122, 162, 255, 0.22);
+}
+
+.ly-post-card--yugioh {
+  --card-glow-1: rgba(255, 214, 102, 0.14);
+  --card-glow-2: rgba(179, 136, 255, 0.05);
+  --card-border: rgba(255, 214, 102, 0.22);
+  --card-gold-1: rgba(255, 220, 160, 0.22);
+  --card-gold-2: rgba(255, 215, 140, 0.08);
 }
 
 .ly-post-card:hover {
@@ -185,8 +221,8 @@
   z-index: 1;
   background: radial-gradient(
     180px circle at var(--x, 50%) var(--y, 50%),
-    rgba(168, 216, 255, 0.12),
-    rgba(179, 136, 255, 0.06) 35%,
+    var(--card-glow-1),
+    var(--card-glow-2) 35%,
     transparent 65%
   );
   opacity: 0;
@@ -208,17 +244,32 @@
   transition:
     opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  
   box-shadow:
-    inset 0 0 0 1px rgba(179, 136, 255, 0.08),
-    inset 0 0 18px rgba(122, 162, 255, 0.05);
+    inset 0 0 0 1px color-mix(in srgb, var(--card-border) 60%, transparent),
+    inset 0 0 18px color-mix(in srgb, var(--card-glow-1) 45%, transparent);
 }
 
 .ly-post-card:hover::after {
   box-shadow:
-    inset 0 0 0 1px rgba(179, 136, 255, 0.22),
-    inset 0 0 24px rgba(122, 162, 255, 0.12),
-    0 0 28px rgba(122, 162, 255, 0.14);
+    inset 0 0 0 1px var(--card-border),
+    inset 0 0 24px color-mix(in srgb, var(--card-glow-1) 65%, transparent),
+    0 0 28px color-mix(in srgb, var(--card-glow-1) 55%, transparent);
+}
+
+.ly-post-card--tarot::after,
+.ly-post-card--yugioh::after {
+  box-shadow:
+    inset 0 0 0 1px var(--card-gold-1),
+    inset 0 0 22px var(--card-gold-2),
+    inset 0 0 0 2px rgba(179, 136, 255, 0.04);
+}
+
+.ly-post-card--tarot:hover::after,
+.ly-post-card--yugioh:hover::after {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 220, 160, 0.34),
+    inset 0 0 28px rgba(255, 215, 140, 0.10),
+    0 0 24px rgba(255, 215, 140, 0.08);
 }
 
 .ly-post-card__media {
@@ -227,6 +278,8 @@
   aspect-ratio: 16 / 10;
   overflow: hidden;
   background: rgba(168, 216, 255, 0.12);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center center;
 }
 
 .ly-post-card__media::before {
@@ -237,8 +290,8 @@
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0) 60%,
-    rgba(0,0,0,0.35)
+    rgba(0, 0, 0, 0) 60%,
+    rgba(0, 0, 0, 0.35)
   );
 }
 
@@ -253,6 +306,10 @@
     filter 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.ly-post-card:hover .ly-post-card__media {
+  transform: rotateX(1.2deg) rotateY(-1.2deg);
+}
+
 .ly-post-card:hover .ly-post-card__media img {
   transform: scale(1.04);
   filter: brightness(1.03);
@@ -263,6 +320,16 @@
   flex: none;
   padding: 18px 18px 20px;
   background: rgba(255, 255, 255, 0.92);
+}
+
+.ly-post-card--tarot .ly-post-card__content,
+.ly-post-card--yugioh .ly-post-card__content {
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 220, 160, 0.03),
+    rgba(179, 136, 255, 0.02)
+  );
+  background-blend-mode: screen;
 }
 
 .ly-post-card__tag {
@@ -306,8 +373,8 @@
   body {
     background:
       radial-gradient(circle at 15% 0%, rgba(122,162,255,0.18), transparent 30%),
-    radial-gradient(circle at 85% 10%, rgba(179,136,255,0.16), transparent 24%),
-    radial-gradient(circle at 50% 80%, rgba(168,216,255,0.08), transparent 40%),
+      radial-gradient(circle at 85% 10%, rgba(179,136,255,0.16), transparent 24%),
+      radial-gradient(circle at 50% 80%, rgba(168,216,255,0.08), transparent 40%),
       linear-gradient(180deg, #151a33 0%, #0d1020 100%);
   }
 
@@ -329,6 +396,15 @@
 
   .ly-post-card__content {
     background: rgba(22, 26, 44, 0.96);
+  }
+
+  .ly-post-card--tarot .ly-post-card__content,
+  .ly-post-card--yugioh .ly-post-card__content {
+    background-image: linear-gradient(
+      135deg,
+      rgba(255, 220, 160, 0.04),
+      rgba(179, 136, 255, 0.03)
+    );
   }
 
   .ly-post-card__tag {
@@ -353,7 +429,7 @@
   .ly-post-card:hover {
     box-shadow:
       0 20px 40px rgba(0, 0, 0, 0.28),
-      0 0 24px rgba(122, 162, 255, 0.12);
+      0 0 24px color-mix(in srgb, var(--card-glow-1) 35%, transparent);
   }
 }
 
@@ -405,41 +481,4 @@
   .ly-hero__desc {
     font-size: 16px;
   }
-}
-
-.ly-post-card--tarot::after,
-.ly-post-card--yugioh::after {
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 215, 140, 0.20),
-    inset 0 0 22px rgba(255, 215, 140, 0.07),
-    inset 0 0 0 2px rgba(179, 136, 255, 0.04);
-}
-
-.ly-post-card--tarot:hover::after,
-.ly-post-card--yugioh:hover::after {
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 220, 160, 0.34),
-    inset 0 0 28px rgba(255, 215, 140, 0.10),
-    0 0 24px rgba(255, 215, 140, 0.08);
-}
-
-.ly-post-card--tarot .ly-post-card__content,
-.ly-post-card--yugioh .ly-post-card__content {
-  background:
-    linear-gradient(rgba(255,255,255,0.0), rgba(255,255,255,0.0)),
-    linear-gradient(135deg, rgba(255, 220, 160, 0.03), rgba(179, 136, 255, 0.02));
-}
-
-.ly-post-card {
-  transform-style: preserve-3d;
-  perspective: 1000px;
-}
-
-.ly-post-card:hover .ly-post-card__media {
-  transform: rotateX(2deg) rotateY(-2deg);
-}
-
-.ly-post-card__media {
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  transform-origin: center center;
 }
