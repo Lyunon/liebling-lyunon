@@ -57,6 +57,7 @@
   justify-content: flex-end;
   align-items: end;
   min-height: 520px;
+  overflow:hidden;
 }
 
 .ly-hero__visual::before {
@@ -70,10 +71,10 @@
 }
 
 .ly-hero__visual img {
-  width: auto;
-  max-width: 620px;
+  width: 100%;
+  max-width: 780px;
   height: auto;
-  transform: scale(1.05);
+  transform: translateX(70px) scale(1.12);
   transform-origin: center bottom;
 }
 
