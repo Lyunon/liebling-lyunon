@@ -166,29 +166,38 @@
     </script>
     
     <script>
-      document.querySelectorAll('.ly-post-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
+      document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.ly-post-card');
 
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
+        cards.forEach(card => {
+          card.addEventListener('mouseenter', () => {
+            card.classList.add('is-hovering');
+          });
 
-          const rotateY = ((x - centerX) / centerX) * 5;
-          const rotateX = ((centerY - y) / centerY) * 5;
+          card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
 
-          card.style.setProperty('--x', `${x}px`);
-          card.style.setProperty('--y', `${y}px`);
-          card.style.setProperty('--rotateX', `${rotateX}deg`);
-          card.style.setProperty('--rotateY', `${rotateY}deg`);
-        });
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
 
-        card.addEventListener('mouseleave', () => {
-          card.style.removeProperty('--x');
-          card.style.removeProperty('--y');
-          card.style.setProperty('--rotateX', '0deg');
-          card.style.setProperty('--rotateY', '0deg');
+            const rotateY = ((x - centerX) / centerX) * 3.5;
+            const rotateX = ((centerY - y) / centerY) * 3.5;
+
+            card.style.setProperty('--x', `${x}px`);
+            card.style.setProperty('--y', `${y}px`);
+            card.style.setProperty('--rotateX', `${rotateX}deg`);
+            card.style.setProperty('--rotateY', `${rotateY}deg`);
+          });
+
+          card.addEventListener('mouseleave', () => {
+            card.classList.remove('is-hovering');
+            card.style.removeProperty('--x');
+            card.style.removeProperty('--y');
+            card.style.setProperty('--rotateX', '0deg');
+            card.style.setProperty('--rotateY', '0deg');
+          });
         });
       });
     </script>
