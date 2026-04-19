@@ -1,0 +1,140 @@
+/* 글 페이지 상단 여백/분위기 */
+.post-template .main-wrap,
+.page-template .main-wrap {
+  position: relative;
+}
+
+.post-template .main-wrap::before,
+.page-template .main-wrap::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(168, 216, 255, 0.08), transparent 24%),
+    radial-gradient(circle at 82% 20%, rgba(179, 136, 255, 0.08), transparent 22%);
+  z-index: 0;
+}
+
+/* 글 컨테이너를 살짝 떠 있게 */
+.post-template .gh-article,
+.page-template .gh-article {
+  position: relative;
+  z-index: 1;
+}
+
+.post-template .gh-content,
+.page-template .gh-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* 본문 카드 느낌 */
+.post-template .gh-content,
+.page-template .gh-content {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(140, 170, 255, 0.14);
+  box-shadow: 0 18px 36px rgba(120, 140, 255, 0.08);
+  border-radius: 24px;
+  padding: 32px 30px;
+  backdrop-filter: blur(8px);
+}
+
+/* 제목 강조 */
+.post-template .gh-title,
+.page-template .gh-title {
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+/* 메타 정보 톤 정리 */
+.post-template .gh-meta,
+.page-template .gh-meta {
+  opacity: 0.78;
+}
+
+/* 소제목 장식 */
+.gh-content h2 {
+  position: relative;
+  padding-bottom: 0.35em;
+}
+
+.gh-content h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 72px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(122, 162, 255, 0.9),
+    rgba(179, 136, 255, 0.7)
+  );
+}
+
+/* 인용구를 조금 더 타로 느낌으로 */
+.gh-content blockquote {
+  position: relative;
+  overflow: hidden;
+}
+
+.gh-content blockquote::before {
+  content: "✦";
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 16px;
+  opacity: 0.35;
+}
+
+/* 이미지 hover 아주 약하게 */
+.gh-content img {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.gh-content img:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(120, 140, 255, 0.12);
+}
+
+/* 다음/이전 글 카드가 있다면 톤 맞추기 */
+.gh-navigation {
+  margin-top: 36px;
+}
+
+.gh-navigation a {
+  border-radius: 18px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gh-navigation a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(120, 140, 255, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .post-template .gh-content,
+  .page-template .gh-content {
+    background: rgba(22, 26, 44, 0.88);
+    border-color: rgba(179, 136, 255, 0.14);
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+  }
+
+  .gh-content h2::after {
+    background: linear-gradient(
+      90deg,
+      rgba(143, 194, 255, 0.9),
+      rgba(179, 136, 255, 0.75)
+    );
+  }
+}
+
+@media (max-width: 640px) {
+  .post-template .gh-content,
+  .page-template .gh-content {
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+}
