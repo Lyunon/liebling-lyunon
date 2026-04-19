@@ -21,6 +21,11 @@
   background: rgba(255, 255, 255, 0.10);
   color: #fff;
   font-size: 13px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.season-toggle button:hover {
+  transform: translateY(-1px);
 }
 
 .season-toggle button.is-active {
@@ -49,38 +54,125 @@ body.season-on .season-overlay::after {
   opacity: 1;
 }
 
+/* spring */
 body.season-spring .season-overlay::before {
   background-image:
-    radial-gradient(circle, rgba(255, 210, 230, 0.9) 0 6px, transparent 7px),
-    radial-gradient(circle, rgba(255, 190, 220, 0.75) 0 5px, transparent 6px),
-    radial-gradient(circle, rgba(255, 230, 240, 0.85) 0 4px, transparent 5px);
+    radial-gradient(circle, rgba(255, 210, 230, 0.85) 0 6px, transparent 7px),
+    radial-gradient(circle, rgba(255, 190, 220, 0.7) 0 5px, transparent 6px),
+    radial-gradient(circle, rgba(255, 230, 240, 0.75) 0 4px, transparent 5px);
   background-size: 220px 220px, 280px 280px, 180px 180px;
-  animation: springFall 18s linear infinite;
+  animation: seasonSpringFall 18s linear infinite;
 }
 
-@keyframes springFall {
-  from {
-    transform: translateY(-6%) translateX(0);
-  }
-  to {
-    transform: translateY(6%) translateX(-3%);
-  }
+body.season-spring .season-overlay::after {
+  background-image:
+    radial-gradient(circle, rgba(255, 220, 235, 0.35) 0 7px, transparent 8px);
+  background-size: 320px 320px;
+  animation: seasonSpringFall2 24s linear infinite;
 }
 
+/* summer */
+body.season-summer .season-overlay::before {
+  background-image:
+    radial-gradient(circle, rgba(180, 230, 255, 0.18) 0 8px, transparent 9px),
+    radial-gradient(circle, rgba(150, 220, 255, 0.14) 0 5px, transparent 6px);
+  background-size: 200px 200px, 260px 260px;
+  filter: blur(1px);
+  animation: seasonSummerFloat 12s ease-in-out infinite alternate;
+}
+
+body.season-summer .season-overlay::after {
+  background-image:
+    radial-gradient(circle, rgba(200, 240, 255, 0.12) 0 12px, transparent 13px);
+  background-size: 300px 300px;
+  filter: blur(2px);
+  animation: seasonSummerFloat2 16s ease-in-out infinite alternate;
+}
+
+/* autumn */
+body.season-autumn .season-overlay::before {
+  background-image:
+    radial-gradient(circle, rgba(255, 170, 90, 0.78) 0 7px, transparent 8px),
+    radial-gradient(circle, rgba(220, 90, 40, 0.68) 0 6px, transparent 7px),
+    radial-gradient(circle, rgba(255, 210, 120, 0.62) 0 5px, transparent 6px);
+  background-size: 240px 240px, 300px 300px, 200px 200px;
+  animation: seasonAutumnFall 22s linear infinite;
+}
+
+body.season-autumn .season-overlay::after {
+  background-image:
+    radial-gradient(circle, rgba(255, 180, 100, 0.22) 0 8px, transparent 9px);
+  background-size: 340px 340px;
+  animation: seasonAutumnFall2 28s linear infinite;
+}
+
+/* winter */
 body.season-winter .season-overlay::before {
   background-image:
-    radial-gradient(circle, rgba(255,255,255,0.92) 0 3px, transparent 4px),
-    radial-gradient(circle, rgba(220,240,255,0.72) 0 2px, transparent 3px),
-    radial-gradient(circle, rgba(255,255,255,0.68) 0 4px, transparent 5px);
+    radial-gradient(circle, rgba(255, 255, 255, 0.92) 0 3px, transparent 4px),
+    radial-gradient(circle, rgba(220, 240, 255, 0.72) 0 2px, transparent 3px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.68) 0 4px, transparent 5px);
   background-size: 160px 160px, 220px 220px, 300px 300px;
-  animation: winterSnow 16s linear infinite;
+  animation: seasonWinterSnow 16s linear infinite;
 }
 
-@keyframes winterSnow {
-  from {
-    transform: translateY(-8%);
+body.season-winter .season-overlay::after {
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.24) 0 6px, transparent 7px);
+  background-size: 360px 360px;
+  animation: seasonWinterSnow2 24s linear infinite;
+}
+
+@keyframes seasonSpringFall {
+  from { transform: translateY(-6%) translateX(0); }
+  to { transform: translateY(6%) translateX(-3%); }
+}
+
+@keyframes seasonSpringFall2 {
+  from { transform: translateY(-4%) translateX(2%); }
+  to { transform: translateY(7%) translateX(-2%); }
+}
+
+@keyframes seasonSummerFloat {
+  from { transform: translateY(0); }
+  to { transform: translateY(10px); }
+}
+
+@keyframes seasonSummerFloat2 {
+  from { transform: translateY(0) translateX(0); }
+  to { transform: translateY(14px) translateX(6px); }
+}
+
+@keyframes seasonAutumnFall {
+  from { transform: translateY(-5%) translateX(1%); }
+  to { transform: translateY(7%) translateX(-2%); }
+}
+
+@keyframes seasonAutumnFall2 {
+  from { transform: translateY(-6%) translateX(-1%); }
+  to { transform: translateY(8%) translateX(3%); }
+}
+
+@keyframes seasonWinterSnow {
+  from { transform: translateY(-8%); }
+  to { transform: translateY(8%); }
+}
+
+@keyframes seasonWinterSnow2 {
+  from { transform: translateY(-10%) translateX(0); }
+  to { transform: translateY(10%) translateX(2%); }
+}
+
+@media (max-width: 640px) {
+  .season-toggle {
+    right: 12px;
+    bottom: 12px;
+    gap: 6px;
+    padding: 8px 10px;
   }
-  to {
-    transform: translateY(8%);
+
+  .season-toggle button {
+    padding: 6px 10px;
+    font-size: 12px;
   }
 }
