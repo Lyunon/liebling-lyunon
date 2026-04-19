@@ -135,6 +135,7 @@
     {{!-- All the main content gets inserted here, index.hbs, post.hbs, etc --}}
     {{{body}}}
 
+    <canvas id="season-canvas"></canvas>
     <div class="season-overlay" aria-hidden="true"></div>
 
     {{!-- Search form --}}
@@ -224,32 +225,121 @@
     </script>
 
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const body = document.body;
-        const month = new Date().getMonth() + 1; // 1~12
+    document.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('season-canvas');
+      const ctx = canvas.getContext('2d');
     
-        body.classList.remove(
-          'season-on',
-          'season-spring',
-          'season-summer',
-          'season-autumn',
-          'season-winter'
-        );
+      let particles = [];
+      let type = 'snow';
     
-        let season = 'winter';
+      const month = new Date().getMonth() + 1;
     
-        if (month >= 3 && month <= 5) {
-          season = 'spring';
-        } else if (month >= 6 && month <= 8) {
-          season = 'summer';
-        } else if (month >= 9 && month <= 11) {
-          season = 'autumn';
-        } else {
-          season = 'winter';
+      if (month >= 3 && month <= 5) type = 'sakura';
+      else if (month >= 6 && month <= 8) type = 'rain';
+      else if (month >= 9 && month <= 11) type = 'leaf';
+      else type = 'snow';
+    
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    
+      window.addEventListener('resize', resize);
+      resize();
+    
+      function createParticle() {
+        const base = {
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 6 + 4,
+          speedY: Math.random() * 1 + 0.5,
+          speedX: (Math.random() - 0.5) * 1
+        };
+    
+        if (type === 'snow') {
+          return {
+            ...base,
+            size: Math.random() * 4 + 2,
+            speedY: Math.random() * 0.6 + 0.2,
+            color: 'rgba(255,255,255,0.9)'
+          };
         }
     
-        body.classList.add('season-on', `season-${season}`);
-      });
+        if (type === 'sakura') {
+          return {
+            ...base,
+            size: Math.random() * 6 + 4,
+            speedY: Math.random() * 0.8 + 0.3,
+            p.x += Math.sin(p.y * 0.01),
+            color: 'rgba(255,190,220,0.9)'
+          };
+        }
+    
+        if (type === 'leaf') {
+          return {
+            ...base,
+            size: Math.random() * 7 + 5,
+            speedY: Math.random() * 1 + 0.4,
+            color: 'rgba(255,150,80,0.85)'
+          };
+        }
+    
+        if (type === 'rain') {
+          return {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: 2,
+            speedY: Math.random() * 4 + 4,
+            speedX: 0,
+            color: 'rgba(180,220,255,0.5)'
+          };
+        }
+      }
+    
+      function init(count = 60) {
+        particles = [];
+        for (let i = 0; i < count; i++) {
+          particles.push(createParticle());
+        }
+      }
+    
+      function drawParticle(p) {
+        ctx.beginPath();
+    
+        if (type === 'rain') {
+          ctx.strokeStyle = p.color;
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p.x, p.y + 10);
+          ctx.stroke();
+          return;
+        }
+    
+        ctx.fillStyle = p.color;
+        ctx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    
+      function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+        particles.forEach(p => {
+          p.y += p.speedY;
+          p.x += p.speedX;
+    
+          if (p.y > canvas.height) {
+            p.y = -10;
+            p.x = Math.random() * canvas.width;
+          }
+    
+          drawParticle(p);
+        });
+    
+        requestAnimationFrame(update);
+      }
+    
+      init(80);
+      update();
+    });
     </script>
 
     {{ghost_foot}}
