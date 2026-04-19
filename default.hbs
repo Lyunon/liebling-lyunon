@@ -225,8 +225,6 @@
     </script>
 
     <script>
-      
-    let snowAccum = [];
     
     document.addEventListener('DOMContentLoaded', () => {
       const canvas = document.getElementById('season-canvas');
@@ -235,6 +233,7 @@
       const ctx = canvas.getContext('2d');
       let particles = [];
       let ripples = [];
+      let snowAccum = [];
       let type = 'snow';
     
       const forced = localStorage.getItem('force-season');
@@ -530,10 +529,10 @@
     
       function updateParticle(p) {
         p.y += p.speedY;
-    
+      
         if (type === 'rain') {
           p.x += p.speedX;
-    
+      
           if (p.y > canvas.height - 30 && Math.random() < 0.08) {
             addRipple(p.x);
           }
@@ -541,46 +540,35 @@
           p.wobble += p.drift;
           p.x += p.speedX + Math.sin(p.wobble) * 0.45;
           p.rotation += p.rotationSpeed;
-
+      
           if (type === 'snow') {
             p.twinklePhase += p.twinkle;
+      
             const ground = canvas.height - 8;
+            if (p.y > ground) {
+              const x = Math.floor(p.x);
+      
+              if (x >= 0 && x < snowAccum.length && snowAccum[x] < 12) {
+                snowAccum[x] += p.size * 0.15;
+              }
+      
+              p.y = -20;
+              p.x = Math.random() * canvas.width;
+              return;
+            }
           }
         }
-    
+      
         if (p.y > canvas.height + 40) {
           Object.assign(p, createParticle(), {
             y: -40,
             x: Math.random() * canvas.width
-
-            if (p.y > ground) {
-              const x = Math.floor(p.x);
-          
-              if (snowAccum[x] < 12) {
-                snowAccum[x] += p.size * 0.15;
-              }
-          
-              p.y = -20;
-              p.x = Math.random() * canvas.width;
-            }
           });
         }
-    
+      
         if (p.x < -50) p.x = canvas.width + 50;
         if (p.x > canvas.width + 50) p.x = -50;
       }
-    
-      function loop() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-        for (const p of particles) {
-          updateParticle(p);
-          drawParticle(p);
-
-          if (type === 'snow') {
-            drawSnowAccum();
-          }
-        }
 
       function drawSnowAccum() {
         ctx.save();
@@ -601,10 +589,22 @@
         ctx.restore();
       }
     
+      function loop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+        for (const p of particles) {
+          updateParticle(p);
+          drawParticle(p);
+        }
+      
+        if (type === 'snow') {
+          drawSnowAccum();
+        }
+      
         if (type === 'rain') {
           updateRipples();
         }
-    
+      
         requestAnimationFrame(loop);
       }
     
