@@ -931,6 +931,12 @@ html[data-theme='light'] .gh-content pre {
       0 0 24px color-mix(in srgb, var(--card-glow-1) 35%, transparent);
   }
 
+  .ly-post-card.is-clicked::after {
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.35),
+      0 0 36px color-mix(in srgb, var(--card-glow-1) 60%, transparent);
+  }
+
   .ly-featured-card {
     background: rgba(23, 28, 56, 0.72);
     border-color: rgba(179, 136, 255, 0.16);
