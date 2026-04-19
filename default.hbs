@@ -232,12 +232,17 @@
       const ctx = canvas.getContext('2d');
       let particles = [];
       let type = 'snow';
-    
+
+      const forced = localStorage.getItem('force-season');
       const month = new Date().getMonth() + 1;
-      if (month >= 3 && month <= 5) type = 'sakura';
-      else if (month >= 6 && month <= 8) type = 'rain';
-      else if (month >= 9 && month <= 11) type = 'leaf';
-      else type = 'snow';
+      if (forced) {
+        type = forced;
+      } else {
+        if (month >= 3 && month <= 5) type = 'sakura';
+        else if (month >= 6 && month <= 8) type = 'rain';
+        else if (month >= 9 && month <= 11) type = 'leaf';
+        else type = 'snow';
+      }
     
       function resize() {
         canvas.width = window.innerWidth;
