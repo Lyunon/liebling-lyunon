@@ -133,6 +133,15 @@
   <body class="{{body_class}}">
     {{!-- All the main content gets inserted here, index.hbs, post.hbs, etc --}}
     {{{body}}}
+    <div class="season-toggle" aria-label="계절 효과 선택">
+      <button type="button" data-season="off">OFF</button>
+      <button type="button" data-season="spring">봄</button>
+      <button type="button" data-season="summer">여름</button>
+      <button type="button" data-season="autumn">가을</button>
+      <button type="button" data-season="winter">겨울</button>
+    </div>
+
+    <div class="season-overlay" aria-hidden="true"></div>
 
     {{!-- Search form --}}
     {{^if @custom.enable_native_search}}
@@ -216,6 +225,40 @@
         card.addEventListener('click', () => {
           card.classList.add('is-clicked');
           setTimeout(() => card.classList.remove('is-clicked'), 220);
+        });
+      });
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.season-toggle button');
+        const body = document.body;
+        const STORAGE_KEY = 'season-effect';
+
+        const seasons = ['spring', 'summer', 'autumn', 'winter'];
+
+        function applySeason(season) {
+          seasons.forEach(s => body.classList.remove(`season-${s}`));
+          body.classList.remove('season-on');
+
+          if (season && season !== 'off') {
+            body.classList.add('season-on', `season-${season}`);
+          }
+
+          localStorage.setItem(STORAGE_KEY, season || 'off');
+
+          buttons.forEach(btn => {
+            btn.classList.toggle('is-active', btn.dataset.season === season);
+          });
+        }
+
+        const saved = localStorage.getItem(STORAGE_KEY) || 'off';
+        applySeason(saved);
+
+        buttons.forEach(button => {
+          button.addEventListener('click', () => {
+            applySeason(button.dataset.season);
+          });
         });
       });
     </script>
