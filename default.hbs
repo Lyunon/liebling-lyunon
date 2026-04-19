@@ -134,13 +134,6 @@
   <body class="{{body_class}}">
     {{!-- All the main content gets inserted here, index.hbs, post.hbs, etc --}}
     {{{body}}}
-    <div class="season-toggle" aria-label="계절 효과 선택">
-      <button type="button" data-season="off">OFF</button>
-      <button type="button" data-season="spring">봄</button>
-      <button type="button" data-season="summer">여름</button>
-      <button type="button" data-season="autumn">가을</button>
-      <button type="button" data-season="winter">겨울</button>
-    </div>
 
     <div class="season-overlay" aria-hidden="true"></div>
 
@@ -232,35 +225,30 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const buttons = document.querySelectorAll('.season-toggle button');
         const body = document.body;
-        const STORAGE_KEY = 'season-effect';
-
-        const seasons = ['spring', 'summer', 'autumn', 'winter'];
-
-        function applySeason(season) {
-          seasons.forEach(s => body.classList.remove(`season-${s}`));
-          body.classList.remove('season-on');
-
-          if (season && season !== 'off') {
-            body.classList.add('season-on', `season-${season}`);
-          }
-
-          localStorage.setItem(STORAGE_KEY, season || 'off');
-
-          buttons.forEach(btn => {
-            btn.classList.toggle('is-active', btn.dataset.season === season);
-          });
+        const month = new Date().getMonth() + 1; // 1~12
+    
+        body.classList.remove(
+          'season-on',
+          'season-spring',
+          'season-summer',
+          'season-autumn',
+          'season-winter'
+        );
+    
+        let season = 'winter';
+    
+        if (month >= 3 && month <= 5) {
+          season = 'spring';
+        } else if (month >= 6 && month <= 8) {
+          season = 'summer';
+        } else if (month >= 9 && month <= 11) {
+          season = 'autumn';
+        } else {
+          season = 'winter';
         }
-
-        const saved = localStorage.getItem(STORAGE_KEY) || 'off';
-        applySeason(saved);
-
-        buttons.forEach(button => {
-          button.addEventListener('click', () => {
-            applySeason(button.dataset.season);
-          });
-        });
+    
+        body.classList.add('season-on', `season-${season}`);
       });
     </script>
 
