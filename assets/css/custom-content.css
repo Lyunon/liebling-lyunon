@@ -692,3 +692,26 @@
     right: 82px;
   }
 }
+
+.tarot-info-layout {
+  display: grid;
+  grid-template-columns: 0.95fr 1.45fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.tarot-info-card--deck {
+  height: 100%;
+}
+
+.tarot-spread-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (max-width: 980px) {
+  .tarot-info-layout {
+    grid-template-columns: 1fr;
+  }
+}
