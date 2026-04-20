@@ -229,3 +229,73 @@
     grid-template-columns: 1fr;
   }
 }
+
+.tarot-faq__list {
+  display: grid;
+  gap: 14px;
+}
+
+.tarot-faq__item {
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.66);
+  border: 1px solid rgba(140, 170, 255, 0.14);
+  box-shadow: 0 12px 24px rgba(120, 140, 255, 0.06);
+}
+
+.tarot-faq__item summary {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  padding: 20px 52px 20px 20px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.tarot-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.tarot-faq__item summary::after {
+  content: "+";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  line-height: 1;
+  opacity: 0.65;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.tarot-faq__item[open] summary::after {
+  content: "−";
+  opacity: 1;
+}
+
+.tarot-faq__answer {
+  padding: 0 20px 20px;
+  line-height: 1.8;
+  opacity: 0.88;
+}
+
+.tarot-faq__item[open] {
+  background:
+    linear-gradient(135deg, rgba(168, 216, 255, 0.08), rgba(179, 136, 255, 0.06)),
+    rgba(255, 255, 255, 0.72);
+}
+
+@media (prefers-color-scheme: dark) {
+  .tarot-faq__item {
+    background: rgba(22, 26, 44, 0.88);
+    border-color: rgba(179, 136, 255, 0.14);
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+  }
+
+  .tarot-faq__item[open] {
+    background:
+      linear-gradient(135deg, rgba(143, 194, 255, 0.06), rgba(179, 136, 255, 0.06)),
+      rgba(22, 26, 44, 0.92);
+  }
+}
+
