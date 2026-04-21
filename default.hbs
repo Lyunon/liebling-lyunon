@@ -615,6 +615,43 @@
     });
     </script>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slider = document.querySelector('.home-featured-slider');
+      if (!slider) return;
+    
+      const slides = slider.querySelectorAll('.home-featured-slider__slide');
+      const prevBtn = slider.querySelector('.home-featured-slider__nav--prev');
+      const nextBtn = slider.querySelector('.home-featured-slider__nav--next');
+    
+      if (slides.length <= 1) return;
+    
+      let current = 0;
+    
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('is-active', i === index);
+        });
+      }
+    
+      function goNext() {
+        current = (current + 1) % slides.length;
+        showSlide(current);
+      }
+    
+      function goPrev() {
+        current = (current - 1 + slides.length) % slides.length;
+        showSlide(current);
+      }
+    
+      prevBtn?.addEventListener('click', goPrev);
+      nextBtn?.addEventListener('click', goNext);
+    
+      showSlide(current);
+      setInterval(goNext, 5000);
+    });
+    </script>
+    
     {{ghost_foot}}
   </body>
 </html>
