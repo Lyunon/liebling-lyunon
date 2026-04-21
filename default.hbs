@@ -627,6 +627,7 @@
       if (slides.length <= 1) return;
     
       let current = 0;
+      let autoSlide;
     
       function showSlide(index) {
         slides.forEach((slide, i) => {
@@ -644,11 +645,28 @@
         showSlide(current);
       }
     
-      prevBtn?.addEventListener('click', goPrev);
-      nextBtn?.addEventListener('click', goNext);
+      function startAutoSlide() {
+        autoSlide = setInterval(goNext, 5000);
+      }
+    
+      function stopAutoSlide() {
+        clearInterval(autoSlide);
+      }
+    
+      prevBtn?.addEventListener('click', () => {
+        stopAutoSlide();
+        goPrev();
+        startAutoSlide();
+      });
+    
+      nextBtn?.addEventListener('click', () => {
+        stopAutoSlide();
+        goNext();
+        startAutoSlide();
+      });
     
       showSlide(current);
-      setInterval(goNext, 5000);
+      startAutoSlide();
     });
     </script>
     
