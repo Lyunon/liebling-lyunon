@@ -64,25 +64,41 @@
   <!-- FEATURED -->
   <section class="ly-section ly-section--featured">
     <div class="l-wrapper">
+      <div class="home-featured-slider">
+        <button class="home-featured-slider__nav home-featured-slider__nav--prev" type="button" aria-label="이전 슬라이드">‹</button>
 
-      {{#get "posts" filter="tag:featured-home" limit="2" include="tags,authors"}}
-        {{#if posts}}
+        <div class="home-featured-slider__track">
+          <div class="home-featured-slider__slide is-active">
+            {{#get "posts" filter="tag:featured-main-1" limit="1" include="tags,authors"}}
+              {{#foreach posts}}
+                {{> "featured-card"}}
+              {{/foreach}}
+            {{/get}}
 
-          {{#foreach posts}}
-            {{> "featured-card"}}
-          {{/foreach}}
+            {{#get "posts" filter="tag:featured-main-2" limit="1" include="tags,authors"}}
+              {{#foreach posts}}
+                {{> "featured-card"}}
+              {{/foreach}}
+            {{/get}}
+          </div>
 
-        {{else}}
+          <div class="home-featured-slider__slide">
+            {{#get "posts" filter="tag:featured-main-3" limit="1" include="tags,authors"}}
+              {{#foreach posts}}
+                {{> "featured-card"}}
+              {{/foreach}}
+            {{/get}}
 
-          {{#get "posts" limit="1" include="tags,authors"}}
-            {{#foreach posts}}
-              {{> "featured-card"}}
-            {{/foreach}}
-          {{/get}}
+            {{#get "posts" filter="tag:featured-main-4" limit="1" include="tags,authors"}}
+              {{#foreach posts}}
+                {{> "featured-card"}}
+              {{/foreach}}
+            {{/get}}
+          </div>
+        </div>
 
-        {{/if}}
-      {{/get}}
-
+        <button class="home-featured-slider__nav home-featured-slider__nav--next" type="button" aria-label="다음 슬라이드">›</button>
+      </div>
     </div>
   </section>
 
