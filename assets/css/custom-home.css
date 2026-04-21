@@ -1334,3 +1334,83 @@ html[data-theme='light'] .gh-content pre {
   border-radius: inherit;
   background: linear-gradient(90deg, #7a9eff, #aebfff);
 }
+
+.home-featured-slider {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-featured-slider__track {
+  position: relative;
+  min-height: 100%;
+}
+
+.home-featured-slider__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 0.7s ease,
+    transform 1.2s ease;
+  pointer-events: none;
+}
+
+.home-featured-slider__slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.home-featured-slider__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 10px 24px rgba(120, 140, 255, 0.12);
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.home-featured-slider__nav--prev {
+  left: -18px;
+}
+
+.home-featured-slider__nav--next {
+  right: -18px;
+}
+
+.home-featured-slider__progress {
+  width: 100%;
+  height: 4px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+}
+
+.home-featured-slider__progress-bar {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #7a9eff, #aebfff);
+}
+
+@media (max-width: 1240px) {
+  .home-featured-slider__nav--prev {
+    left: 8px;
+  }
+
+  .home-featured-slider__nav--next {
+    right: 8px;
+  }
+}
