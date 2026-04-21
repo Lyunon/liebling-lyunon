@@ -971,3 +971,61 @@
     border-radius: 18px;
   }
 }
+
+/* =========================
+   Light Mode Override
+========================= */
+
+@media (prefers-color-scheme: light) {
+
+  .ly-rule-hero h1,
+  .ly-rule-card h2,
+  .ly-rule-note strong,
+  .ly-rule-contact strong {
+    color: #1a1f2b;
+  }
+
+  .ly-rule-desc,
+  .ly-rule-summary-item p,
+  .ly-rule-note p,
+  .ly-rule-contact p,
+  .ly-rule-list li {
+    color: #3a4358;
+  }
+
+  .ly-rule-summary-item strong {
+    color: #222a3a;
+  }
+
+  /* 카드 배경 밝게 */
+  .ly-rule-card,
+  .ly-rule-summary-item,
+  .ly-rule-contact {
+    background: rgba(255,255,255,0.85);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .ly-rule-hero {
+    background:
+      radial-gradient(circle at 20% 0%, rgba(120, 160, 255, 0.15), transparent 40%),
+      linear-gradient(180deg, #ffffff, #f7f9ff);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .ly-rule-note {
+    background: linear-gradient(135deg, rgba(120,160,255,0.12), rgba(160,130,255,0.10));
+  }
+
+  .ly-rule-list li::before {
+    color: #5a8cff;
+  }
+
+  .ly-rule-contact a {
+    color: #3b6cff;
+    border-color: rgba(59,108,255,0.3);
+  }
+
+  .ly-rule-contact a:hover {
+    color: #1f4fff;
+  }
+}
