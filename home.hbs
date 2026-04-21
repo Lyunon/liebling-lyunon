@@ -74,7 +74,7 @@
 
         {{else}}
 
-          {{#get "posts" limit="1" include="tags,authors"}}
+          {{#get "posts" limit="2" include="tags,authors"}}
             {{#foreach posts}}
               {{> "featured-card"}}
             {{/foreach}}
