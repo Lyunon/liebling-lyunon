@@ -691,6 +691,12 @@
       showSlide(current);
       startProgress();
       startAuto();
+
+      slider.addEventListener('mouseenter', () => {
+        stopAuto();
+        progressBar.style.transition = 'none';
+      });
+      
     });
     </script>
     
