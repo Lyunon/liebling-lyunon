@@ -625,11 +625,15 @@
       const nextBtn = slider.querySelector('.home-featured-slider__nav--next');
       const progressBar = slider.querySelector('.home-featured-slider__progress-bar');
     
-      if (slides.length <= 1) return;
+      if (!slides.length || !progressBar || slides.length <= 1) return;
     
       let current = 0;
-      let timer;
+      let timer = null;
       const duration = 5000;
+    
+      let startedAt = 0;
+      let remaining = duration;
+      let isPaused = false;
     
       function showSlide(index) {
         slides.forEach((slide, i) => {
@@ -637,66 +641,98 @@
         });
       }
     
-      function startProgress() {
+      function resetProgressVisual() {
         progressBar.style.transition = 'none';
         progressBar.style.width = '0%';
+      }
+    
+      function startProgress(ms) {
+        resetProgressVisual();
     
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            progressBar.style.transition = `width ${duration}ms linear`;
+            progressBar.style.transition = `width ${ms}ms linear`;
             progressBar.style.width = '100%';
           });
         });
       }
     
+      function clearAutoTimer() {
+        if (timer) {
+          clearTimeout(timer);
+          timer = null;
+        }
+      }
+    
+      function scheduleNext(ms) {
+        clearAutoTimer();
+        startedAt = Date.now();
+        remaining = ms;
+    
+        startProgress(ms);
+    
+        timer = setTimeout(() => {
+          goNext();
+        }, ms);
+      }
+    
       function goNext() {
+        clearAutoTimer();
         current = (current + 1) % slides.length;
         showSlide(current);
-        startProgress();
+        remaining = duration;
+        scheduleNext(duration);
       }
     
       function goPrev() {
+        clearAutoTimer();
         current = (current - 1 + slides.length) % slides.length;
         showSlide(current);
-        startProgress();
+        remaining = duration;
+        scheduleNext(duration);
       }
     
-      function startAuto() {
-        timer = setInterval(goNext, duration);
+      function pauseAuto() {
+        if (isPaused) return;
+        isPaused = true;
+    
+        const elapsed = Date.now() - startedAt;
+        remaining = Math.max(0, remaining - elapsed);
+    
+        const computedWidth = window.getComputedStyle(progressBar).width;
+        progressBar.style.transition = 'none';
+        progressBar.style.width = computedWidth;
+    
+        clearAutoTimer();
       }
     
-      function stopAuto() {
-        clearInterval(timer);
-      }
+      function resumeAuto() {
+        if (!isPaused) return;
+        isPaused = false;
     
-      function resetAuto() {
-        stopAuto();
-        startAuto();
+        if (remaining <= 0) {
+          goNext();
+          return;
+        }
+    
+        scheduleNext(remaining);
       }
     
       prevBtn?.addEventListener('click', () => {
+        isPaused = false;
         goPrev();
-        resetAuto();
       });
     
       nextBtn?.addEventListener('click', () => {
+        isPaused = false;
         goNext();
-        resetAuto();
       });
     
-      // ⭐ 여기 추가 (핵심)
-      slider.addEventListener('mouseenter', stopAuto);
-      slider.addEventListener('mouseleave', startAuto);
+      slider.addEventListener('mouseenter', pauseAuto);
+      slider.addEventListener('mouseleave', resumeAuto);
     
       showSlide(current);
-      startProgress();
-      startAuto();
-
-      slider.addEventListener('mouseenter', () => {
-        stopAuto();
-        progressBar.style.transition = 'none';
-      });
-      
+      scheduleNext(duration);
     });
     </script>
     
