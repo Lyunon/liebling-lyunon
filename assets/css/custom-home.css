@@ -1333,6 +1333,11 @@ html[data-theme='light'] .gh-content pre {
   display: block;
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #7a9eff, #aebfff);
+  background: linear-gradient(
+    90deg,
+    rgba(122,158,255,0.4),
+    rgba(122,158,255,1),
+    rgba(174,191,255,1)
+  );
   transition: width linear;
 }
