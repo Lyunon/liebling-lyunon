@@ -64,18 +64,20 @@
   <!-- FEATURED -->
   <section class="ly-section ly-section--featured">
     <div class="l-wrapper">
+
       {{#get "posts" filter="tag:featured-home" limit="5" include="tags,authors"}}
         {{#if posts}}
           <div class="home-featured-slider">
-
-
-            
             <button class="home-featured-slider__nav home-featured-slider__nav--prev" type="button" aria-label="이전 슬라이드">‹</button>
 
             <div class="home-featured-slider__track">
               {{#foreach posts}}
                 <div class="home-featured-slider__slide {{#if @first}}is-active{{/if}}">
                   {{> "featured-card"}}
+
+                  <div class="home-featured-slider__progress">
+                    <span class="home-featured-slider__progress-bar"></span>
+                  </div>
                 </div>
               {{/foreach}}
             </div>
@@ -85,14 +87,14 @@
         {{else}}
           {{#get "posts" limit="3" include="tags,authors"}}
             {{#if posts}}
-              <div class="home-featured-slider">           
+              <div class="home-featured-slider">
                 <button class="home-featured-slider__nav home-featured-slider__nav--prev" type="button" aria-label="이전 슬라이드">‹</button>
 
                 <div class="home-featured-slider__track">
                   {{#foreach posts}}
                     <div class="home-featured-slider__slide {{#if @first}}is-active{{/if}}">
                       {{> "featured-card"}}
-                    
+
                       <div class="home-featured-slider__progress">
                         <span class="home-featured-slider__progress-bar"></span>
                       </div>
@@ -106,6 +108,7 @@
           {{/get}}
         {{/if}}
       {{/get}}
+
     </div>
   </section>
 
