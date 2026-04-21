@@ -623,11 +623,13 @@
       const slides = slider.querySelectorAll('.home-featured-slider__slide');
       const prevBtn = slider.querySelector('.home-featured-slider__nav--prev');
       const nextBtn = slider.querySelector('.home-featured-slider__nav--next');
+      const progressBar = slider.querySelector('.home-featured-slider__progress-bar');
     
       if (slides.length <= 1) return;
     
       let current = 0;
-      let autoSlide;
+      let timer;
+      const duration = 5000; // 5초
     
       function showSlide(index) {
         slides.forEach((slide, i) => {
@@ -635,39 +637,56 @@
         });
       }
     
+      function startProgress() {
+        progressBar.style.transition = 'none';
+        progressBar.style.width = '0%';
+    
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            progressBar.style.transition = `width ${duration}ms linear`;
+            progressBar.style.width = '100%';
+          });
+        });
+      }
+    
       function goNext() {
         current = (current + 1) % slides.length;
         showSlide(current);
+        startProgress();
       }
     
       function goPrev() {
         current = (current - 1 + slides.length) % slides.length;
         showSlide(current);
+        startProgress();
       }
     
-      function startAutoSlide() {
-        autoSlide = setInterval(goNext, 5000);
+      function startAuto() {
+        timer = setInterval(goNext, duration);
       }
     
-      function stopAutoSlide() {
-        clearInterval(autoSlide);
+      function resetAuto() {
+        clearInterval(timer);
+        startAuto();
       }
     
       prevBtn?.addEventListener('click', () => {
-        stopAutoSlide();
         goPrev();
-        startAutoSlide();
+        resetAuto();
       });
     
       nextBtn?.addEventListener('click', () => {
-        stopAutoSlide();
         goNext();
-        startAutoSlide();
+        resetAuto();
       });
     
       showSlide(current);
-      startAutoSlide();
+      startProgress();
+      startAuto();
     });
+    
+    slider.addEventListener('mouseenter', () => clearInterval(timer));
+    slider.addEventListener('mouseleave', startAuto);
     </script>
     
     {{ghost_foot}}
